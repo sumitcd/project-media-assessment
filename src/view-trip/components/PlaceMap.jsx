@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import {
     APIProvider,
@@ -14,8 +14,9 @@ import axios from 'axios';
 
 const PlaceMap = ({ trip }) => {
     const [error, setError] = useState('');
-    const [position, setPosition] = useState({lat:0, lng:0});
-
+    const [position, setPosition] = useState({ lat: 0, lng: 0 });
+    const [isInitialPositionSet, setIsInitialPositionSet] = useState(false); // New state to track initial center setting
+    const mapRef = useRef(null);
     const getGeolocation = async (trip) => {
         try {
             const apiKey = import.meta.env.VITE_GOOGLE_PLACE_API_KEY;
@@ -30,7 +31,8 @@ const PlaceMap = ({ trip }) => {
             );
             if (response.data.status === 'OK') {
                 const location = response.data.results[0].geometry.location;
-                setPosition({lat:location.lat, lng:location.lng});
+                setPosition({ lat: location.lat, lng: location.lng });
+                setMapCenter({ lat: location.lat, lng: location.lng });
                 console.log(position);
                 setError('');
             } else {
@@ -43,14 +45,22 @@ const PlaceMap = ({ trip }) => {
     };
 
     useEffect(() => {
-        trip&&getGeolocation(trip);
+        trip && getGeolocation(trip);
     }, [trip])
-    
+
+    useEffect(() => {
+        // Reset the map center when position changes only if it's the initial setting
+        if (!isInitialPositionSet && position.lat !== 0 && position.lng !== 0) {
+            setIsInitialPositionSet(true); // Mark the initial position as set
+        }
+    }, [position, isInitialPositionSet]);
 
     return (
         <APIProvider apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}>
             <div className='bg-yellow-200 w-full h-full'>
-                <Map defaultZoom={9} center={position} mapId={import.meta.env.VITE_GOOGLE_MAP_ID}>
+                {/* If Initial Position is not set then only update the center*/}
+                {/* Done to make map draggable*/}
+                <Map defaultZoom={9} center={!isInitialPositionSet ? position : undefined} mapId={import.meta.env.VITE_GOOGLE_MAP_ID} ref={mapRef}>
                     {trip?.tripData?.hotelOptions.map((item, index) => (
                         <HotelMarker hotel={item} />
                     ))}

@@ -22,7 +22,7 @@ const UserTripCardItem = ({ trip }) => {
     return (
         <Link to={'/view-trip/' + trip?.id} style={{color:'black'}}>
             <div className='hover:scale-105 transition-all'>
-                <img src={photoUrl} alt="" className="object-cover rounded-xl h-[260px] w-full" />
+                <img src={photoUrl?photoUrl:"/placeholder.jpg"} alt="" className="object-cover rounded-xl h-[260px] w-full" />
                 <div>
                     <h2 className='font-bold text-lg'>{trip?.userSelection?.location?.label}</h2>
                     <h2 className='text-sm text-gray-500'>{trip?.userSelection?.noOfDays} Days trip with {trip?.userSelection?.budget} Budget</h2>

@@ -42,8 +42,8 @@ const ViewTrip = () => {
     }
 
     return (
-        <div className='flex max-h-[100vh]'>
-            <div className='p-4 w-full 2xl:w-[50%] overflow-scroll'>
+        <div className='flex md:flex-row flex-col-reverse'>
+            <div className='p-4 w-full 2xl:w-[50%] md:max-h-[100vh] md:overflow-scroll'>
                 {/* Powered By AI */}
                 <div className='flex items-center gap-2 mb-6 mx-auto container w-full justify-center'>
                     <LuSparkles className='h-[26px] w-[26px] p-1 bg-purple-300 rounded-full' />
@@ -58,7 +58,7 @@ const ViewTrip = () => {
                 {/* Footer */}
                 <Footer />
             </div>
-            <div className='bg-yellow-300 2xl:w-[50%] w-[30%] md:block hidden'>
+            <div className='bg-yellow-300 2xl:w-[50%] md:w-[40%] w-full h-[300px] md:h-auto'>
                 <PlaceMap trip={trip}/>
             </div>
         </div>

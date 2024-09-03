@@ -56,7 +56,6 @@ const InfoSection = ({ trip }) => {
             textQuery: trip?.userSelection?.location?.label
         }
         const result = await GetPlaceDetails(data).then(resp => {
-            console.log(resp.data.places[0].photos[3].name)
             const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', resp.data.places[0].photos[3].name);
             setPhotoUrl(PhotoUrl);
         })

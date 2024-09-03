@@ -17,11 +17,11 @@ const PlaceCardItem = ({ place }) => {
             textQuery: place?.placeName
         }
         const result = await GetPlaceDetails(data).then(resp => {
-            console.log(resp.data.places[0].photos[3].name)
             const PhotoUrl = PHOTO_REF_URL.replace('{NAME}', resp.data.places[0].photos[3].name);
             setPhotoUrl(PhotoUrl);
         })
     }
+    
     return (
         <Link to={'https://www.google.com/maps/search/?api=1&query=' + place?.placeName + "," + place?.placeAddress} target='_blank'>
             <div className='border rounded-xl p-3 mt-2 flex gap-5 hover:scale-105 transition-all cursor-pointer hover:shadow-md h-[150x] text-black'>
