@@ -33,7 +33,11 @@ const HotelMarker = ({ hotel }) => {
     const extractCoordinates = (coordinates) => {
         // Split the string into latitude and longitude parts
         const [latStr, lonStr] = coordinates.split(',');
-
+        
+        if (!latStr || !lonStr) {
+            console.error('Invalid coordinate parts:', latStr, lonStr);
+            return;
+        }
         // Extract the numeric values
         setLatitude(parseFloat(latStr) * (latStr.includes('S') ? -1 : 1));
         setLongitude(parseFloat(lonStr) * (lonStr.includes('W') ? -1 : 1));
@@ -41,7 +45,7 @@ const HotelMarker = ({ hotel }) => {
 
     // Get Geocoordinates on Load
     useEffect(() => {
-        hotel && extractCoordinates(hotel?.geoCoordinates);
+        hotel?.geoCoordinates && extractCoordinates(hotel?.geoCoordinates);
     }, [hotel])
 
     // Get Hotel Photo
