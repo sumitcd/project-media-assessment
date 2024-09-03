@@ -49,18 +49,18 @@ const Header = () => {
 
   return (
     <div className='p-3 shadow-sm flex justify-between items-center px-5'>
-      <a href='/' className='flex items-center gap-3'>
-        <img src="/logo.svg" alt="" />
-        <p className='text-black font-bold text-2xl'>TravelEase</p>
+      <a href='/' className='flex items-center md:gap-2 gap-1'>
+        <img src="/logo.svg" alt="" className='md:h-10 md:w-10 h-5 w-5' />
+        <p className='text-black font-bold md:text-2xl text-md'>TravelEase</p>
       </a>
       <div>
         {user ?
           <div className='flex items-center gap-3'>
-            <a href='/my-trips'>
-              <Button variant="outline" className="rounded-full text-black text-md">My Trips</Button>
-            </a>
             <a href='/create-trip'>
-              <Button variant="outline" className="rounded-full text-black text-md">+ Add</Button>
+              <Button variant="outline" className="rounded-full text-black md:text-md md:h-10 md:w-22 text-sm">+ Add</Button>
+            </a>
+            <a href='/my-trips'>
+              <Button variant="outline" className="rounded-full text-black md:text-md md:h-10 md:w-22 text-sm">My Trips</Button>
             </a>
             <Popover>
               <PopoverTrigger className='rounded-full p-0'>

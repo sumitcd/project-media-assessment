@@ -8,18 +8,19 @@ import Hotels from '../components/Hotels';
 import PlacesToVisit from '../components/PlacesToVisit';
 import Footer from '../components/Footer';
 import { LuSparkles } from "react-icons/lu";
+import PlaceMap from '../components/PlaceMap';
 
 
 const ViewTrip = () => {
 
     const { tripId } = useParams();
-    const [trip, setTrip]=useState([])
+    const [trip, setTrip] = useState([])
 
     /**
      * Get the Trip Information on Landing
      */
-    useEffect(()=>{
-        tripId&&getTripData();
+    useEffect(() => {
+        tripId && getTripData();
     }, [tripId])
 
     /**
@@ -29,32 +30,37 @@ const ViewTrip = () => {
         const docRef = doc(db, 'AITrips', tripId);
         const docSnap = await getDoc(docRef);
 
-        if(docSnap.exists){
+        if (docSnap.exists) {
             console.log("Document:", docSnap.data());
             setTrip(docSnap.data());
 
         }
-        else{
+        else {
             console.log("No Such Document");
             toast("No Trip Found!")
         }
     }
 
     return (
-        <div className='p-10 md:px-20 lg:px-44 xl:px-56'>
-            {/* Powered By AI */}
-            <div className='flex items-center gap-2 mb-6 mx-auto container w-full justify-center'>
-            <LuSparkles className='h-[26px] w-[26px] p-1 bg-purple-300 rounded-full'/>
-            <p className='text-md'>Powered By AI</p>
+        <div className='flex max-h-[100vh]'>
+            <div className='p-4 w-full 2xl:w-[50%] overflow-scroll'>
+                {/* Powered By AI */}
+                <div className='flex items-center gap-2 mb-6 mx-auto container w-full justify-center'>
+                    <LuSparkles className='h-[26px] w-[26px] p-1 bg-purple-300 rounded-full' />
+                    <p className='text-md'>Powered By AI</p>
+                </div>
+                {/* Information Section */}
+                <InfoSection trip={trip} />
+                {/* Recommended Hotels */}
+                <Hotels trip={trip} />
+                {/* Daily Plan */}
+                <PlacesToVisit trip={trip} />
+                {/* Footer */}
+                <Footer />
             </div>
-            {/* Information Section */}
-                <InfoSection trip={trip}/>
-            {/* Recommended Hotels */}
-                <Hotels trip={trip}/>
-            {/* Daily Plan */}
-                <PlacesToVisit trip={trip}/>
-            {/* Footer */}
-                <Footer/>
+            <div className='bg-yellow-300 2xl:w-[50%] w-[30%] md:block hidden'>
+                <PlaceMap trip={trip}/>
+            </div>
         </div>
     )
 }

@@ -70,10 +70,10 @@ const InfoSection = ({ trip }) => {
             <div className='flex justify-between items-center'>
                 <div className='my-5 flex flex-col gap-2'>
                     <h2 className='font-bold text-4xl mb-2'>{trip?.userSelection?.location?.label}</h2>
-                    <div className='flex gap-5'>
-                        <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-lg'>📅 {trip?.userSelection?.noOfDays} Day</h2>
-                        <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-lg'>💰{trip?.userSelection?.budget} Budget</h2>
-                        <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500 text-xs md:text-lg'>🥂 No. Of Traveler: {trip?.userSelection?.noOfPeople}  People</h2>
+                    <div className='flex gap-1'>
+                        <h2 className='rounded-full text-gray-500 text-xs md:text-lg'>{trip?.userSelection?.noOfDays} Day -</h2>
+                        <h2 className='rounded-full text-gray-500 text-xs md:text-lg'>{trip?.userSelection?.budget} Budget -</h2>
+                        <h2 className='rounded-full text-gray-500 text-xs md:text-lg'>{trip?.userSelection?.noOfPeople} Traveller</h2>
                     </div>
                 </div>
                 <div className='flex gap-3'>
